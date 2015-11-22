@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Developing Data Products</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Developing Data Products">
+  <meta name="author" content="Joseph Walkenhorst">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Developing Data Products</h1>
+    <h2>Assignment 1</h2>
+    <p>Joseph Walkenhorst<br/>Business Analyst/Data Scientist</p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Understanding Logistic Regression Predictions</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Ever wondered how to interpret the probabilistic predictions made by a logistic regression model?</li>
+</ul>
+
+<p><img src="questions.jpg" alt="width"></p>
+
+<ul>
+<li>Using my app &quot;Understanding Logistic Regression Predictions&quot;, now you can!</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Source Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The source data used for this app was the training data available from the Kaggle web site for the Titanic competition. </li>
+<li>This competition provides data for each passenger on the 1912 maiden voyage of the RMS Titanic passenger ship, including whether they survived the ship colliding with an ice berg and sinking.</li>
+<li>The model was trained using 70% of the training data, with the other 30% used to compute the accuracy statistics for the app:</li>
+</ul>
+
+<pre><code class="r">library(caret)
+titanicTrain = read.csv(&quot;titanic train.csv&quot;)
+titanicTrain$Survived = as.factor(titanicTrain$Survived)
+trainBool = createDataPartition(titanicTrain$Survived, p=0.7, list=FALSE)
+trainSet = titanicTrain[trainBool,]
+testSet = titanicTrain[-trainBool,]
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Defining the Model</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The model uses the passenger class, sex and age to predict the probability of survival:</li>
+</ul>
+
+<pre><code class="r">fit = glm(Survived~Pclass+Sex+SibSp, data=trainSet, family=&quot;binomial&quot;)
+</code></pre>
+
+<pre><code>##               Estimate Std. Error    z value     Pr(&gt;|z|)
+## (Intercept)  3.2891914  0.3606529   9.120102 7.505348e-20
+## Pclass      -0.8732780  0.1265815  -6.898941 5.239171e-12
+## Sexmale     -2.6901579  0.2229434 -12.066551 1.586449e-33
+## SibSp       -0.2872521  0.1063234  -2.701683 6.898951e-03
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Using the App</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>Simply tweak the threshold to see how the performance of the model is affected.</li>
+<li>Key statistical measures are given and a ROC curve is shown with the location of the specificity-sensitivity point for the given threshold.</li>
+<li>You can find the app here: <a href="https://walkenhorst.shinyapps.io/Assignment">https://walkenhorst.shinyapps.io/Assignment</a></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Understanding Logistic Regression Predictions'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Source Data'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Defining the Model'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Using the App'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
