@@ -39,7 +39,7 @@ testSet = titanicTrain[-trainBool,]
 --- .class #id 
 
 ## Defining the Model
- - The model uses the passenger class, sex and age to predict the probability of survival:
+ - The model uses the passenger class, sex and number of siblings and spouses aboard to predict the probability of survival:
 
 ```r
 fit = glm(Survived~Pclass+Sex+SibSp, data=trainSet, family="binomial")
