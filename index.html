@@ -89,7 +89,7 @@ testSet = titanicTrain[-trainBool,]
   </hgroup>
   <article data-timings="">
     <ul>
-<li>The model uses the passenger class, sex and age to predict the probability of survival:</li>
+<li>The model uses the passenger class, sex and number of siblings and spouses aboard to predict the probability of survival:</li>
 </ul>
 
 <pre><code class="r">fit = glm(Survived~Pclass+Sex+SibSp, data=trainSet, family=&quot;binomial&quot;)
